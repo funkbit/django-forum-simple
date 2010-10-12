@@ -3,7 +3,7 @@
 
 {% block title %}{% blocktrans with thread.title as title %}Reply to thread  "{{ title }}"{% endblocktrans %}{% endblock %}
 
-{% block pagetitle %}{% blocktrans with thread.title as title %}Reply to Thread "{{ title }}"{% endblocktrans %}{% endblock %}
+{% block pagetitle %}{% blocktrans with thread.title as title %}Reply to thread "{{ title }}"{% endblocktrans %}{% endblock %}
 
 {% block breadcrumbs %}
 	{% for title, url in thread.forum.get_url_name %}
