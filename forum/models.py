@@ -32,10 +32,10 @@ class Forum(models.Model):
     All of the parent/child recursion code here is borrowed directly from
     the Satchmo project: http://www.satchmoproject.com/
     """
-    groups = models.ManyToManyField(Group, blank=True)
+    groups = models.ManyToManyField(Group, blank=True, verbose_name=_('Groups'))
     title = models.CharField(_("Title"), max_length=100)
     slug = models.SlugField(_("Slug"))
-    parent = models.ForeignKey('self', blank=True, null=True, related_name='child')
+    parent = models.ForeignKey('self', blank=True, null=True, related_name='child', verbose_name=_('Parent'))
     description = models.TextField(_("Description"))
     threads = models.IntegerField(_("Threads"), default=0, editable=False)
     posts = models.IntegerField(_("Posts"), default=0, editable=False)
@@ -161,7 +161,7 @@ class Thread(models.Model):
     in the thread listings. Again, the posts & views fields are 
     automatically updated with saving a post or viewing the thread.
     """
-    forum = models.ForeignKey(Forum)
+    forum = models.ForeignKey(Forum, verbose_name=_('Forum'))
     title = models.CharField(_("Title"), max_length=100)
     sticky = models.BooleanField(_("Sticky?"), blank=True, default=False)
     closed = models.BooleanField(_("Closed?"), blank=True, default=False)
@@ -215,8 +215,8 @@ class Post(models.Model):
     A Post is a User's input to a thread. Uber-basic - the save() 
     method also updates models further up the heirarchy (Thread,Forum)
     """
-    thread = models.ForeignKey(Thread)
-    author = models.ForeignKey(User, related_name='forum_post_set')
+    thread = models.ForeignKey(Thread, verbose_name=_('Thread'))
+    author = models.ForeignKey(User, related_name='forum_post_set', verbose_name=_('Author'))
     body = models.TextField(_("Body"))
     body_html = models.TextField(editable=False)
     time = models.DateTimeField(_("Time"), blank=True, null=True)
@@ -279,7 +279,7 @@ class Subscription(models.Model):
     thread = models.ForeignKey(Thread)
 
     class Meta:
-        unique_together = (("author", "thread"),)
+        unique_together = (('author', 'thread'),)
         verbose_name = _('Subscription')
         verbose_name_plural = _('Subscriptions')
 
