@@ -4,14 +4,15 @@ A basic forum model with corresponding thread/post models.
 Just about all logic required for smooth updates is in the save() 
 methods. A little extra logic is in views.py.
 """
-
-import os
-from django.db import models
 import datetime
-from django.contrib.auth.models import User, Group
+import os
+
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import User, Group
+from django.db import models
 from django.utils.html import escape
+from django.utils.translation import ugettext_lazy as _
+
 try:
     from markdown import markdown
 except ImportError:

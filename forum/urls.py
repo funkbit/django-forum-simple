@@ -10,8 +10,9 @@ Usage in your base urls.py:
 """
 
 from django.conf.urls.defaults import *
-from forum.models import Forum
+
 from forum.feeds import RssForumFeed, AtomForumFeed
+from forum.models import Forum
 from forum.sitemap import ForumSitemap, ThreadSitemap, PostSitemap
 
 feed_dict = {

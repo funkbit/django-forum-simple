@@ -1,6 +1,7 @@
-from forum.models import Thread, Post
-from django.utils.translation import ugettext as _
 from django.template import Library, Node, TemplateSyntaxError, Variable, resolve_variable
+from django.utils.translation import ugettext as _
+
+from forum.models import Thread, Post
 
 register = Library()
 

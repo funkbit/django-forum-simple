@@ -1,7 +1,9 @@
+import datetime
+
 from django import forms
 from django.utils.translation import ugettext as _
+
 from forum.models import *
-import datetime
 
 class CreateThreadForm(forms.ModelForm):
     forum = forms.IntegerField(widget=forms.HiddenInput)

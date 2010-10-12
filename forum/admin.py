@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from forum.models import Forum, Thread, Post, Subscription
 
 class ForumAdmin(admin.ModelAdmin):
