@@ -3,19 +3,26 @@ from django.contrib import admin
 from forum.models import Forum, Thread, Post, Subscription
 
 class ForumAdmin(admin.ModelAdmin):
-    list_display = ('title', '_parents_repr')
-    list_filter = ('groups',)
-    ordering = ['ordering', 'parent', 'title']
-    prepopulated_fields = {"slug": ("title",)}
+    list_display = ('title', '_parents_repr', 'ordering', )
+    list_filter = ('groups', )
+    ordering = ['ordering', 'parent', 'title', ]
+    prepopulated_fields = {'slug': ('title', )}
+    search_fields = ('id', 'title', )
 
 class SubscriptionAdmin(admin.ModelAdmin):
-    list_display = ['author','thread']
+    list_display = ('author', 'thread', )
 
 class ThreadAdmin(admin.ModelAdmin):
-    list_display = ('title', 'forum', 'latest_post_time')
-    list_filter = ('forum',)
+    list_display = ('title', 'forum', 'latest_post_time', )
+    list_filter = ('forum', 'sticky', 'closed', 'latest_post_time', )
+    search_fields = ('id', 'title', )
+
+class PostAdmin(admin.ModelAdmin):
+    list_display = ('__unicode__', 'thread', 'author', 'time', )
+    list_filter = ('time', )
+    search_fields = ('id', )
 
 admin.site.register(Forum, ForumAdmin)
 admin.site.register(Thread, ThreadAdmin)
-admin.site.register(Post)
+admin.site.register(Post, PostAdmin)
 admin.site.register(Subscription, SubscriptionAdmin)
