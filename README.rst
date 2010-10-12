@@ -18,30 +18,30 @@ My Home Page: http://www.rossp.org
 Current Status
 --------------
 
- * It's very basic in terms of features, but it works and is usable.
- * Uses Django Admin for maintenance / moderation - no in-line admin.
- * Uses existing django Auth and assumes you already have that up and
-   running. I use and recommend django-registration [1]
- * Roll your own site with little work: Install Django, install
-   django-registration, flatpages, django-forum, setup your templates
-   and you have an instant website :)
- * Requires a very recent Django SVN checkout, at least 7971 (1.0 alpha is OK)
- * Requires python-markdown, and 'django.contrib.markup' in INSTALLED_APPS.
+* It's very basic in terms of features, but it works and is usable.
+* Uses Django Admin for maintenance / moderation - no in-line admin.
+* Uses existing django Auth and assumes you already have that up and
+  running. I use and recommend django-registration [1]
+* Roll your own site with little work: Install Django, install
+  django-registration, flatpages, django-forum, setup your templates
+  and you have an instant website :)
+* Requires a very recent Django SVN checkout, at least 7971 (1.0 alpha is OK)
+* Requires python-markdown, and 'django.contrib.markup' in INSTALLED_APPS.
 
 [1] http://code.google.com/p/django-registration/
 
 Getting Started
 ---------------
 
-   1. Checkout code via SVN into your python path.
-       svn co http://django-forum.googlecode.com/svn/trunk/ forum
-   3. Add 'forum' to your INSTALLED_APPS in settings.py. Also add 
-       'django.contrib.markup' if you haven't already got it there.
-   4. ./manage.py syncdb
-   5. Update urls.py: (r'^forum/', include('forum.urls')),
-   6. Go to your site admin, add a forum
-   7. Browse to yoursite.com/forum/
-   8. Enjoy :)
+1. Checkout code via SVN into your python path.
+    svn co http://django-forum.googlecode.com/svn/trunk/ forum
+3. Add 'forum' to your INSTALLED_APPS in settings.py. Also add 
+    'django.contrib.markup' if you haven't already got it there.
+4. ./manage.py syncdb
+5. Update urls.py: (r'^forum/', include('forum.urls')),
+6. Go to your site admin, add a forum
+7. Browse to yoursite.com/forum/
+8. Enjoy :)
 
 Note: The forum software can be at any URI you like, just change the relevant
 urls.py entry. EG replace 'forum/' with '/' to have your forum at the root 
@@ -58,30 +58,6 @@ Example:
         (r'^sitemap.xml$', 'django.contrib.sitemaps.views.index', {'sitemaps': yoursitemap_dict}),
         (r'^sitemap-(?P<section>.+)\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': yoursitemap_dict}),
     )
-
-Upgrading
----------
-
-If you've upgraded from an SVN revision prior to r51, you will need to 
-update your database using the following commands:
-
-# MySQL:
-ALTER TABLE forum_post ADD COLUMN body_html longtext;
-ALTER TABLE "forum_forum" ADD COLUMN "ordering" integer NULL;
-
-# Or, PostgreSQL:
-ALTER TABLE "forum_post" ADD COLUMN "body_html" text; # PostgreSQL
-ALTER TABLE "forum_forum" ADD COLUMN "ordering" integer NULL;
-
-Then, from a Python shell:
-
->>> from markdown import markdown
->>> from forum.models import Post
->>> for post in Post.objects.all():
-...     post.body_html = ''
-...     post.save()
-...
->>> exit()
 
 Thanks
 ------
