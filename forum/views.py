@@ -25,7 +25,11 @@ FORUM_PAGINATION = getattr(settings, 'FORUM_PAGINATION', 10)
 LOGIN_URL = getattr(settings, 'LOGIN_URL', '/accounts/login/')
 
 def forums_list(request):
+    """
+    Forum frontpage, displays a list of forums.
+    """
     queryset = Forum.objects.for_groups(request.user.groups.all()).filter(parent__isnull=True)
+    
     return object_list( request,
                         queryset=queryset)
 
@@ -35,13 +39,12 @@ def forum(request, slug):
     Threads are sorted by their sticky flag, followed by their 
     most recent post.
     """
-    try:
-        f = Forum.objects.for_groups(request.user.groups.all()).select_related().get(slug=slug)
-    except Forum.DoesNotExist:
-        raise Http404
+    qs = Forum.objects.for_groups(request.user.groups.all()).select_related()
+    f = get_object_or_404(qs, slug=slug)
 
     form = CreateThreadForm(forum=f)
     child_forums = f.child.for_groups(request.user.groups.all())
+    
     return object_list( request,
                         queryset=f.thread_set.select_related().all(),
                         paginate_by=FORUM_PAGINATION,
@@ -179,11 +182,15 @@ def newthread(request, forum, extra_context=None):
 
        
 @login_required
-def delete_post(request, id, thread, extra_context=None,
-        template_name=None):
+def delete_post(request, id, thread, extra_context=None, template_name=None):
+    """
+    Deletes a post, if the user is the author.
+    """
     post = get_object_or_404(Post, id=id, thread__id=thread)
+    
     if not request.user == post.author:
         raise Http404
+    
     if request.method == 'POST' and request.POST.get('confirm'):
         post.delete()
         request.user.message_set.create(message=_('Deleted post'))
@@ -194,7 +201,6 @@ def delete_post(request, id, thread, extra_context=None,
 
     return render_to_response(template_name or 'forum/post_delete.html',
             RequestContext(request, ctx))
-
 
 
 @login_required

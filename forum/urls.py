@@ -1,14 +1,10 @@
 """
-URLConf for Django-Forum.
-
-django-forum assumes that the forum application is living under
-/forum/.
+URLConf for django-forum-simple.
 
 Usage in your base urls.py:
     (r'^forum/', include('forum.urls')),
 
 """
-
 from django.conf.urls.defaults import *
 
 from forum.feeds import RssForumFeed, AtomForumFeed
@@ -42,6 +38,6 @@ urlpatterns = patterns('',
     url(r'^([-\w/]+/)(?P<forum>[-\w]+)/new/$', 'forum.views.newthread'),
     url(r'^([-\w/]+/)(?P<slug>[-\w]+)/$', 'forum.views.forum', name='forum_subforum_thread_list'),
 
-    (r'^sitemap.xml$', 'django.contrib.sitemaps.views.index', {'sitemaps': sitemap_dict}),
+    (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.index', {'sitemaps': sitemap_dict}),
     (r'^sitemap-(?P<section>.+)\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemap_dict}),
 )
