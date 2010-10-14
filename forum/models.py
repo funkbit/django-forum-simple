@@ -270,18 +270,3 @@ class Post(models.Model):
     
     def __unicode__(self):
         return u"%s" % self.id
-
-class Subscription(models.Model):
-    """
-    Allow users to subscribe to threads.
-    """
-    author = models.ForeignKey(User)
-    thread = models.ForeignKey(Thread)
-
-    class Meta:
-        unique_together = (('author', 'thread'),)
-        verbose_name = _('Subscription')
-        verbose_name_plural = _('Subscriptions')
-
-    def __unicode__(self):
-        return u"%s to %s" % (self.author, self.thread)

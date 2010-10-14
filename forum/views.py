@@ -18,7 +18,7 @@ from django.template.defaultfilters import striptags, wordwrap
 from django.utils.translation import ugettext as _
 from django.views.generic.list_detail import object_list
 
-from forum.models import Forum,Thread,Post,Subscription
+from forum.models import Forum, Thread, Post
 from forum.forms import CreateThreadForm, ReplyForm, EditPost
 
 FORUM_PAGINATION = getattr(settings, 'FORUM_PAGINATION', 10)
@@ -66,19 +66,11 @@ def thread(request, thread):
         raise Http404
     
     p = t.post_set.select_related('author').all().order_by('time')
-    s = None
-    if request.user.is_authenticated():
-        s = t.subscription_set.select_related().filter(author=request.user)
 
     t.views += 1
     t.save()
 
-    if s:
-        initial = {'subscribe': True}
-    else:
-        initial = {'subscribe': False}
-
-    form = ReplyForm(initial=initial)
+    form = ReplyForm()
 
     page = request.GET.get('page', 1)
     if page == 'all':
@@ -94,7 +86,6 @@ def thread(request, thread):
                         extra_context = {
                             'forum': t.forum,
                             'thread': t,
-                            'subscription': s,
                             'form': form,
                         })
 
@@ -124,51 +115,9 @@ def reply(request, thread, extra_context=None):
             )
         if form.is_valid():
             p.body = form.cleaned_data['body']
+            
             if not preview:
                 p.save()
-
-                sub = Subscription.objects.filter(thread=t, author=request.user)
-                if form.cleaned_data.get('subscribe',False):
-                    if not sub:
-                        s = Subscription(
-                            author=request.user,
-                            thread=t
-                            )
-                        s.save()
-                else:
-                    if sub:
-                        sub.delete()
-
-            # this needs refactorings
-
-            if not preview and t.subscription_set.count() > 0:
-                # Subscriptions are updated now send mail to all the authors subscribed in
-                # this thread.
-                mail_subject = ''
-                try:
-                    mail_subject = settings.FORUM_MAIL_PREFIX 
-                except AttributeError:
-                    mail_subject = '[Forum]'
-
-                mail_from = ''
-                try:
-                    mail_from = settings.FORUM_MAIL_FROM
-                except AttributeError:
-                    mail_from = settings.DEFAULT_FROM_EMAIL
-
-                mail_tpl = loader.get_template('forum/notify.txt')
-                c = Context({
-                    'body': wordwrap(striptags(body), 72),
-                    'site' : Site.objects.get_current(),
-                    'thread': t,
-                    })
-
-                email = EmailMessage(
-                        subject=mail_subject+' '+striptags(t.title),
-                        body= mail_tpl.render(c),
-                        from_email=mail_from,
-                        bcc=[s.author.email for s in t.subscription_set.all()],)
-                email.send(fail_silently=True)
 
             if not preview:
                 return HttpResponseRedirect(p.get_absolute_url())
@@ -216,12 +165,6 @@ def newthread(request, forum, extra_context=None):
             )
             p.save()
     
-            if form.cleaned_data.get('subscribe', False):
-                s = Subscription(
-                    author=request.user,
-                    thread=t
-                    )
-                s.save()
             return HttpResponseRedirect(t.get_absolute_url())
     else:
         form = CreateThreadForm(forum=f)
@@ -234,28 +177,6 @@ def newthread(request, forum, extra_context=None):
     return render_to_response('forum/newthread.html',
         ctx, RequestContext(request))
 
-def updatesubs(request):
-    """
-    Allow users to update their subscriptions all in one shot.
-    """
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect('%s?next=%s' % (LOGIN_URL, request.path))
-
-    subs = Subscription.objects.select_related().filter(author=request.user)
-
-    if request.POST:
-        # remove the subscriptions that haven't been checked.
-        post_keys = [k for k in request.POST.keys()]
-        for s in subs:
-            if not str(s.thread.id) in post_keys:
-                s.delete()
-        return HttpResponseRedirect(reverse('forum_subscriptions'))
-
-    return render_to_response('forum/updatesubs.html',
-        RequestContext(request, {
-            'subs': subs,
-            'next': request.GET.get('next')
-        }))
        
 @login_required
 def delete_post(request, id, thread, extra_context=None,

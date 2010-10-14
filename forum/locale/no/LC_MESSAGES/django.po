@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-12 22:57+0200\n"
+"POT-Creation-Date: 2010-10-14 16:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,117 +29,103 @@ msgstr "%(title)s sitt forum"
 msgid "Latest forum posts"
 msgstr "Siste foruminnlegg"
 
-#: forms.py:10 models.py:38 models.py:167
+#: forms.py:10 models.py:36 models.py:165
 msgid "Title"
 msgstr "Tittel"
 
-#: forms.py:11 forms.py:25 forms.py:30 models.py:222
+#: forms.py:11 forms.py:24 forms.py:28 models.py:220
 msgid "Body"
 msgstr "Innhold"
 
-#: forms.py:12 forms.py:26
-msgid "Subscribe via email"
-msgstr "Abonner via e-post"
-
-#: forms.py:38
+#: forms.py:36
 msgid "Editing posts is disabled in closed threads"
 msgstr "Redigering av innlegg er skrudd av i lukkede tråder"
 
-#: models.py:37
+#: models.py:35
 msgid "Groups"
 msgstr "Grupper"
 
-#: models.py:39
+#: models.py:37
 msgid "Slug"
 msgstr "Slug"
 
-#: models.py:40
+#: models.py:38
 msgid "Parent"
 msgstr "Forelder"
 
-#: models.py:41
+#: models.py:39
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: models.py:42 models.py:188
+#: models.py:40 models.py:186
 msgid "Threads"
 msgstr "Tråder"
 
-#: models.py:43 models.py:170 models.py:265
+#: models.py:41 models.py:168 models.py:263
 #: templates/forum/thread_list.html:60
 msgid "Posts"
 msgstr "Innlegg"
 
-#: models.py:44
+#: models.py:42
 msgid "Ordering"
 msgstr "Rekkefølge"
 
-#: models.py:95
+#: models.py:93
 msgid "Forum parents"
 msgstr "Forum-foreldere"
 
-#: models.py:125 models.py:166 templates/forum/forum_list.html:9
-#: templates/forum/updatesubs.html:18
+#: models.py:123 models.py:164 templates/forum/forum_list.html:9
 msgid "Forum"
 msgstr "Forum"
 
-#: models.py:126 templates/forum_base.html:92
+#: models.py:124 templates/forum_base.html:92
 #: templates/forum/forum_list.html:4
 msgid "Forums"
 msgstr "Fora"
 
-#: models.py:131
+#: models.py:129
 msgid "You must not save a forum in itself!"
 msgstr "Du kan ikke lagre et forum i seg selv."
 
-#: models.py:168
+#: models.py:166
 msgid "Sticky?"
 msgstr "Sticky?"
 
-#: models.py:169
+#: models.py:167
 msgid "Closed?"
 msgstr "Lukket?"
 
-#: models.py:171 templates/forum/thread_list.html:61
+#: models.py:169 templates/forum/thread_list.html:61
 msgid "Views"
 msgstr "Visninger"
 
-#: models.py:172
+#: models.py:170
 msgid "Latest Post Time"
 msgstr "Tid for siste innlegg"
 
-#: models.py:187 models.py:220 templates/forum/thread_list.html:59
-#: templates/forum/updatesubs.html:19
+#: models.py:185 models.py:218 templates/forum/thread_list.html:59
 msgid "Thread"
 msgstr "Tråd"
 
-#: models.py:221
+#: models.py:219
 msgid "Author"
 msgstr "Skrevet av"
 
-#: models.py:224
+#: models.py:222
 msgid "Time"
 msgstr "Tidspunkt"
 
-#: models.py:225
+#: models.py:223
 msgid "Edit time"
 msgstr "Tidspunkt redigert"
 
-#: models.py:264 templates/forum/newthread.html:35
+#: models.py:262 templates/forum/newthread.html:35
 #: templates/forum/post_edit.html:14 templates/forum/reply.html:29
 #: templates/forum/thread_list.html:102
 msgid "Post"
 msgstr "Innlegg"
 
-#: models.py:285
-msgid "Subscription"
-msgstr "Abonnement"
-
-#: models.py:286
-msgid "Subscriptions"
-msgstr "Abonnement"
-
-#: views.py:268
+#: views.py:189
 msgid "Deleted post"
 msgstr "Slettede innlegg"
 
@@ -184,10 +170,13 @@ msgstr "vis"
 msgid "No Posts"
 msgstr "Ingen innlegg"
 
-#: templates/forum/forum_list.html:37 templates/forum/thread.html:49
-#: templates/forum/updatesubs.html:32
-msgid "Update Subscriptions"
-msgstr "Oppdater abonnement"
+#: templates/forum/forum_list.html:38
+msgid "No forums found, create one?"
+msgstr "Fant ingen forum, opprette ett?"
+
+#: templates/forum/forum_list.html:41
+msgid "No Forums"
+msgstr "Ingen fora"
 
 #: templates/forum/newthread.html:4 templates/forum/newthread.html.py:11
 #, python-format
@@ -213,18 +202,10 @@ msgid "Create a Thread"
 msgstr "Opprett en tråd"
 
 #: templates/forum/newthread.html:30 templates/forum/post_edit.html:12
-#: templates/forum/reply.html:26 templates/forum/thread.html:62
+#: templates/forum/reply.html:26 templates/forum/thread.html:57
 #: templates/forum/thread_list.html:100
 msgid "Posting As"
 msgstr "Logget inn som"
-
-#: templates/forum/notify.txt:5
-#, python-format
-msgid ""
-"You received this message because you subscribed to a forum thread at %"
-"(site_name)s.  Login at this URL to update your subscriptions: http://%"
-"(domain)s%(url)s"
-msgstr ""
 
 #: templates/forum/post_delete.html:5
 msgid "Delete post?"
@@ -284,19 +265,19 @@ msgstr "Første"
 msgid "Last"
 msgstr "Siste"
 
-#: templates/forum/thread.html:54
+#: templates/forum/thread.html:49
 msgid "Post a Reply"
 msgstr "Skriv et innlegg"
 
-#: templates/forum/thread.html:57
+#: templates/forum/thread.html:52
 msgid "Sorry, this thread is closed. No further replies are permitted."
 msgstr "Beklager, denne tråden er lukket. Ingen flere innlegg er tillatt."
 
-#: templates/forum/thread.html:64
+#: templates/forum/thread.html:59
 msgid "Submit"
 msgstr "Send"
 
-#: templates/forum/thread.html:68
+#: templates/forum/thread.html:63
 msgid "Please login to post a reply."
 msgstr "Vennligst logg inn for å legge inn innlegg."
 
@@ -318,33 +299,38 @@ msgstr "tråd"
 msgid "Sub-Forum"
 msgstr "Under-forum"
 
-#: templates/forum/updatesubs.html:4 templates/forum/updatesubs.html.py:6
-msgid "Update Thread Subscriptions"
-msgstr "Oppdater tråd-abonnement"
+#~ msgid "Subscribe via email"
+#~ msgstr "Abonner via e-post"
 
-#: templates/forum/updatesubs.html:12
-msgid "No subscriptions."
-msgstr "Ingen abonnement."
+#~ msgid "Subscription"
+#~ msgstr "Abonnement"
 
-#: templates/forum/updatesubs.html:20
-msgid "Subscribed"
-msgstr "Abonnert"
+#~ msgid "Subscriptions"
+#~ msgstr "Abonnement"
 
-#: templates/forum/updatesubs.html:26
-msgid "Sticky"
-msgstr "Sticky"
+#~ msgid "Update Subscriptions"
+#~ msgstr "Oppdater abonnement"
 
-#: templates/forum/updatesubs.html:26
-msgid "(Closed)"
-msgstr "(Lukket)"
+#~ msgid "Update Thread Subscriptions"
+#~ msgstr "Oppdater tråd-abonnement"
 
-#: templates/forum/updatesubs.html:37
-msgid "Go back to thread"
-msgstr "Gå tilbake til tråd"
+#~ msgid "No subscriptions."
+#~ msgstr "Ingen abonnement."
 
-#: templates/forum/updatesubs.html:41
-msgid "Please login to update your forum subscriptions."
-msgstr "Vennligst logg inn for å oppdatere dine forum-abonnement."
+#~ msgid "Subscribed"
+#~ msgstr "Abonnert"
+
+#~ msgid "Sticky"
+#~ msgstr "Sticky"
+
+#~ msgid "(Closed)"
+#~ msgstr "(Lukket)"
+
+#~ msgid "Go back to thread"
+#~ msgstr "Gå tilbake til tråd"
+
+#~ msgid "Please login to update your forum subscriptions."
+#~ msgstr "Vennligst logg inn for å oppdatere dine forum-abonnement."
 
 #~ msgid "Reply to Thread \"%(title)s\""
 #~ msgstr "Svar på tråden \"%(title)s\""

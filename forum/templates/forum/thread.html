@@ -44,11 +44,6 @@
 		<li class="last"><a href="?page={{ paginator.num_pages }}">{% trans "Last" %}</a></li>  
 	</ul>
 	{% endif %}
-
-	{% if request.user.is_authenticated %}
-	<p><a href="{% url forum_subscriptions %}?next={{ request.path }}">{% trans "Update Subscriptions" %}</a></p>
-	
-	{% endif %}
 	
 	
 	<h2>{% trans "Post a Reply" %}</h2>

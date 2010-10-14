@@ -9,7 +9,6 @@ class CreateThreadForm(forms.ModelForm):
     forum = forms.IntegerField(widget=forms.HiddenInput)
     title = forms.CharField(label=_("Title"), max_length=100)
     body = forms.CharField(label=_("Body"), widget=forms.Textarea(attrs={'rows':8, 'cols':50}))
-    subscribe = forms.BooleanField(label=_("Subscribe via email"), required=False)
 
     def __init__(self, forum, *args, **kw):
         super(CreateThreadForm, self).__init__(*args, **kw)
@@ -18,12 +17,11 @@ class CreateThreadForm(forms.ModelForm):
 
     class Meta:
         model = Thread
-        fields = ('forum', 'title', 'body', 'subscribe',)
+        fields = ('forum', 'title', 'body', )
 
 
 class ReplyForm(forms.Form):
     body = forms.CharField(label=_("Body"), widget=forms.Textarea(attrs={'rows':8, 'cols':50}))
-    subscribe = forms.BooleanField(label=_("Subscribe via email"), required=False)
 
 
 class EditPost(forms.ModelForm):
