@@ -16,10 +16,7 @@ from django.utils.translation import ugettext_lazy as _
 try:
     from markdown import markdown
 except ImportError:
-    class MarkdownNotFound(Exception):
-        def __str__(self):
-            return "Markdown is not installed!"
-    raise MarkdownNotFound
+    markdown = lambda x: x
 
 from forum.managers import ForumManager
 
